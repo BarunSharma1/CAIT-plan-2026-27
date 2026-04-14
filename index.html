@@ -114,6 +114,12 @@
         body.light-mode .step:hover { background: rgba(0, 0, 0, 0.03); }
         body.light-mode ul li:hover { color: #000; }
 
+        body.light-mode .step-deadline {
+            background: rgba(0, 0, 0, 0.08);
+            border-color: rgba(231, 76, 60, 0.3);
+            color: #c0392b;
+        }
+
         .progress-container {
             position: fixed;
             top: 0;
@@ -347,20 +353,28 @@
             flex: 1;
             text-align: center;
             position: relative;
-            padding: 2vh 1vw;
-            border-radius: 8px;
-            transition: background 0.3s;
+            padding: 2.5vh 1vw 2vh;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
         }
 
-        .step:hover { background: rgba(255, 255, 255, 0.03); }
+        .step:hover {
+            background: rgba(242, 103, 36, 0.05);
+            border-color: rgba(242, 103, 36, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(242, 103, 36, 0.15);
+        }
 
         .step:not(:last-child)::after {
             content: "→";
             position: absolute;
             right: -10px;
-            top: 30%;
+            top: 25%;
             color: var(--orange);
             font-size: 2rem;
+            z-index: 2;
         }
 
         .step-number {
@@ -377,6 +391,95 @@
 
         .step p {
             font-size: clamp(0.8rem, 1.1vw, 1rem);
+            padding: 0 0.3vw;
+        }
+
+        .step-deadline {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.12);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.35);
+            padding: 0.4vh 0.8vw;
+            border-radius: 4px;
+            font-size: clamp(0.7rem, 0.95vw, 0.85rem);
+            font-weight: 700;
+            margin-top: 1.2vh;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .step-timeline-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 2px;
+            margin-top: 1.5vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .step-timeline-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--orange), var(--gold));
+            transition: width 0.8s ease;
+        }
+
+        .timeline-bar-container {
+            margin-top: 4vh;
+            padding: 2vh 1vw;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5vh;
+            padding: 0 0.5vw;
+        }
+
+        .timeline-header span {
+            font-size: clamp(0.75rem, 1vw, 0.9rem);
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-track {
+            display: flex;
+            gap: 0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .timeline-segment {
+            height: 100%;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .timeline-segment:hover {
+            filter: brightness(1.3);
+            transform: scaleY(1.4);
+        }
+
+        .timeline-segment .seg-label {
+            position: absolute;
+            bottom: -2.5vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            color: #999;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .timeline-segment:hover .seg-label {
+            color: var(--white);
         }
 
         .nav-btn {
@@ -494,9 +597,9 @@
 
         .global-logo {
             position: fixed;
-            top: 12px;
-            right: 80px;
-            max-height: 55px;
+            top: 30px;
+            right: 55px;
+            max-height: 90px;
             z-index: 1001;
             filter: drop-shadow(0 0 8px rgba(242, 103, 36, 0.3));
             transition: max-height 0.3s ease, filter 0.3s ease;
@@ -540,7 +643,7 @@
     </div>
 
     <!-- Global Logo -->
-    <img src="cait-india-white-logo-001.svg" alt="CAIT Logo" class="global-logo">
+    <img src="CAIT_white_BBG-removebg-preview.png" alt="CAIT Logo" class="global-logo">
 
     <div class="presentation-container">
 
@@ -550,6 +653,7 @@
             <h1 class="anim-item">IT Department<br>FY 2026–27</h1>
             <h2 class="anim-item">Strategic Goals & Action Plan</h2>
             <p class="anim-item" style="margin-top: 2vh;"><strong>Presented by:</strong> Barun Sharma</p>
+            <p class="anim-item" style="margin-top: 2vh;"><strong>Date:</strong> 18 April 2026</p>
             <p class="anim-item footer-info" style="margin-top:5vh; color:var(--orange);">Press → or click arrows to
                 navigate</p>
         </div>
@@ -718,7 +822,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 7: Annual Goals (Enhancements as Goals) -->
+        <!-- SLIDE 7: Annual Goals -->
         <div class="slide">
             <h2 class="anim-item">Annual Goals 2026–27</h2>
             <div class="grid-3">
@@ -748,9 +852,9 @@
 
         <!-- SLIDE 8: Q1 Focus & Critical KPIs -->
         <div class="slide">
-            <h2 class="anim-item">Q1 Focus & Critical KPIs</h2>
+            <h2 class="anim-item">Q1 Focus <!--& Critical KPIs--></h2>
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; text-align: center; margin-bottom: 4vh;">
-                <div class="card anim-item">
+                <!--<div class="card anim-item">
                     <div class="big-stat"><span class="count-up" data-target="90">0</span>%</div>
                     <div class="stat-label">SLA Compliance</div>
                 </div>
@@ -765,7 +869,7 @@
                 <div class="card anim-item">
                     <div class="big-stat" style="font-size: clamp(2rem, 4vw, 4rem); color: var(--orange);">✓</div>
                     <div class="stat-label">Dashboard Wireframes</div>
-                </div>
+                </div>-->
             </div>
             <div class="grid-2">
                 <div class="card card-gold anim-item">
@@ -779,29 +883,69 @@
             </div>
         </div>
 
-        <!-- SLIDE 9: Action Plan -->
+        <!-- SLIDE 9: Action Plan with Timeline -->
         <div class="slide">
-            <h2 class="anim-item">Action Plan (Q1 Execution)</h2>
+            <h2 class="anim-item">Action Plan & Timeline</h2>
             <div class="step-container">
                 <div class="step anim-item">
                     <div class="step-number">01</div>
                     <h4>SOPs</h4>
                     <p>Draft & finalize core IT SOPs; Enforce ticketing policy</p>
+                    <div class="step-timeline-bar">
+                        <div class="step-timeline-fill" style="width: 25%;"></div>
+                    </div>
+                    <span class="step-deadline">⏰ Jul–Aug 2026</span>
                 </div>
                 <div class="step anim-item">
                     <div class="step-number">02</div>
                     <h4>Dashboards</h4>
                     <p>Gather requirements, design wireframes for Dept Head & CEO levels</p>
+                    <div class="step-timeline-bar">
+                        <div class="step-timeline-fill" style="width: 25%;"></div>
+                    </div>
+                    <span class="step-deadline">⏰ Aug–Oct 2026</span>
                 </div>
                 <div class="step anim-item">
                     <div class="step-number">03</div>
                     <h4>ERP V2</h4>
                     <p>Define architecture, module plan & begin in-house dev setup</p>
+                    <div class="step-timeline-bar">
+                        <div class="step-timeline-fill" style="width: 30%;"></div>
+                    </div>
+                    <span class="step-deadline">⏰ Oct–Jan 2027</span>
                 </div>
                 <div class="step anim-item">
                     <div class="step-number">04</div>
                     <h4>Automate</h4>
                     <p>Deploy automation tools (n8n/scripts) for onboarding & daily ops</p>
+                    <div class="step-timeline-bar">
+                        <div class="step-timeline-fill" style="width: 20%;"></div>
+                    </div>
+                    <span class="step-deadline">⏰ Jan–Mar 2027</span>
+                </div>
+            </div>
+
+            <!-- Visual Timeline Bar -->
+            <div class="timeline-bar-container anim-item">
+                <div class="timeline-header">
+                    <span>Jul '26</span>
+                    <span>Oct '26</span>
+                    <span>Jan '27</span>
+                    <span>Mar '27</span>
+                </div>
+                <div class="timeline-track">
+                    <div class="timeline-segment" style="width: 25%; background: linear-gradient(90deg, #e74c3c, #f26724);" title="SOPs: Jul–Aug">
+                        <span class="seg-label">SOPs</span>
+                    </div>
+                    <div class="timeline-segment" style="width: 25%; background: linear-gradient(90deg, #f26724, #faa71b);" title="Dashboards: Aug–Oct">
+                        <span class="seg-label">Dashboards</span>
+                    </div>
+                    <div class="timeline-segment" style="width: 30%; background: linear-gradient(90deg, #faa71b, #f26724);" title="ERP V2: Oct–Jan">
+                        <span class="seg-label">ERP V2</span>
+                    </div>
+                    <div class="timeline-segment" style="width: 20%; background: linear-gradient(90deg, #f26724, #e74c3c);" title="Automate: Jan–Mar">
+                        <span class="seg-label">Automate</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -835,7 +979,7 @@
                             <li>Minimizes resolution time significantly</li>
                             <li>Lowers recurring external support costs</li>
                         </ul>
-                        <span class="deadline-tag" style="background: rgba(242, 103, 36, 0.15); color: var(--orange); border-color: rgba(242, 103, 36, 0.4);">⏰ Within 30 Days</span>
+                        <!--<span class="deadline-tag" style="background: rgba(242, 103, 36, 0.15); color: var(--orange); border-color: rgba(242, 103, 36, 0.4);">⏰ Within 30 Days</span>-->
                     </div>
                     <div class="card anim-item">
                         <h3>Good Quality Hardware</h3>
@@ -843,7 +987,7 @@
                             <li>Upgrade from outdated models to reduce recurring maintenance costs</li>
                             <li>Eliminate repeated hardware failures and downtime</li>
                         </ul>
-                        <span class="deadline-tag">⏰ DEADLINE: Q1 FY 2026–27</span>
+                        <!--<span class="deadline-tag">⏰ DEADLINE: Q1 FY 2026–27</span>-->
                     </div>
                 </div>
             </div>
@@ -852,7 +996,6 @@
         <!-- SLIDE 11: Thank You -->
         <div class="slide" style="justify-content: center; align-items: center; text-align: center;">
             <h1 class="anim-item" style="font-size: clamp(4rem, 8vw, 8rem); margin-bottom: 2vh;">Thank You</h1>
-            <h2 class="anim-item" style="border: none; color: var(--gold);">Questions?</h2>
             <p class="anim-item" style="margin-top: 5vh; font-size: 1.2rem;">
                 Barun Sharma | itsupport@caitindia.com
             </p>
