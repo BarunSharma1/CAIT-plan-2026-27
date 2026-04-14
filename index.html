@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Department Annual Plan FY 2026-27</title>
+    <style>
+        :root {
+            --orange: #f26724;
+            --gold: #faa71b;
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body.light-mode {
+            background-color: #f0f2f5;
+            color: #1a1a1a;
+        }
+
+        body.light-mode .presentation-container {
+            background: radial-gradient(circle at top right, rgba(242, 103, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(250, 167, 27, 0.05) 0%, transparent 50%),
+                #f0f2f5;
+        }
+
+        body.light-mode h1 { color: #d45a1e; }
+        body.light-mode h2 { color: #111; }
+        body.light-mode h3 { color: #b8860b; }
+        body.light-mode p,
+        body.light-mode li { color: #333; }
+
+        body.light-mode .card {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .card:hover {
+            box-shadow: 0 5px 20px rgba(242, 103, 36, 0.15);
+            background: rgba(242, 103, 36, 0.05);
+        }
+
+        body.light-mode .highlight-box {
+            color: #000;
+            background: linear-gradient(135deg, #ff8a50, #ffc947);
+        }
+
+        body.light-mode .highlight-box h2,
+        body.light-mode .highlight-box p { color: #000; }
+        body.light-mode .highlight-box .big-stat { color: #000; }
+        body.light-mode .stat-label { color: #333; }
+
+        body.light-mode .nav-btn {
+            background: rgba(255, 255, 255, 0.8);
+            color: #111;
+            border-color: var(--orange);
+        }
+
+        body.light-mode .nav-btn:hover {
+            background: var(--orange);
+            color: #000;
+        }
+
+        body.light-mode .slide-menu {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #ddd;
+        }
+
+        body.light-mode .menu-dot { background: #ccc; }
+
+        body.light-mode .menu-dot.active {
+            background: var(--orange);
+            box-shadow: 0 0 8px var(--orange);
+        }
+
+        body.light-mode .page-indicator { color: #555; }
+        body.light-mode .footer-info { color: #666; }
+
+        body.light-mode .progress-container {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .theme-toggle {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border-color: #ccc;
+        }
+
+        body.light-mode .theme-toggle:hover {
+            background: var(--orange);
+            color: #000;
+            border-color: var(--orange);
+        }
+
+        body.light-mode .step:hover { background: rgba(0, 0, 0, 0.03); }
+        body.light-mode ul li:hover { color: #000; }
+
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: background 0.4s;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--gold));
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px var(--orange);
+        }
+
+        .presentation-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: radial-gradient(circle at top right, rgba(242, 103, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(250, 167, 27, 0.05) 0%, transparent 50%),
+                var(--black);
+            transition: background 0.4s ease;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 8vh 8vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .anim-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .slide.active .anim-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide.active .anim-item:nth-child(1) { transition-delay: 0.1s; }
+        .slide.active .anim-item:nth-child(2) { transition-delay: 0.2s; }
+        .slide.active .anim-item:nth-child(3) { transition-delay: 0.3s; }
+        .slide.active .anim-item:nth-child(4) { transition-delay: 0.4s; }
+        .slide.active .anim-item:nth-child(5) { transition-delay: 0.5s; }
+        .slide.active .anim-item:nth-child(6) { transition-delay: 0.6s; }
+        .slide.active .anim-item:nth-child(7) { transition-delay: 0.7s; }
+        .slide.active .anim-item:nth-child(8) { transition-delay: 0.8s; }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            color: var(--orange);
+            margin-bottom: 1vh;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 3rem);
+            color: var(--white);
+            margin-bottom: 4vh;
+            border-bottom: 4px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 1vh;
+            transition: color 0.4s, border-color 0.4s;
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            color: var(--gold);
+            margin-bottom: 2vh;
+            transition: color 0.4s;
+        }
+
+        p,
+        li {
+            font-size: clamp(1rem, 1.5vw, 1.4rem);
+            line-height: 1.6;
+            color: #e0e0e0;
+            transition: color 0.4s;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        ul li::before {
+            content: "▸";
+            color: var(--orange);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            transition: transform 0.2s;
+        }
+
+        ul li:hover::before { transform: translateX(5px); }
+
+        ul li {
+            transition: color 0.2s;
+            cursor: default;
+        }
+
+        ul li:hover { color: var(--white); }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4vw;
+            margin-top: 2vh;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3vw;
+            margin-top: 2vh;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 5px solid var(--orange);
+            padding: 2vh 2vw;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: rgba(242, 103, 36, 0.05);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(242, 103, 36, 0.2);
+            border-left-color: var(--gold);
+        }
+
+        .card-gold { border-left: 5px solid var(--gold); }
+
+        .card-gold:hover {
+            border-left-color: var(--orange);
+            box-shadow: 0 5px 15px rgba(250, 167, 27, 0.2);
+        }
+
+        .card-red { border-left: 5px solid #e74c3c; }
+
+        .card-red:hover {
+            border-left-color: #c0392b;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--orange), var(--gold));
+            color: var(--black);
+            padding: 3vh 2.5vw;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .highlight-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(242, 103, 36, 0.5);
+        }
+
+        .highlight-box h2 {
+            color: var(--black);
+            border: none;
+            margin: 0;
+            font-size: clamp(1.2rem, 2vw, 2rem);
+        }
+
+        .highlight-box p {
+            color: var(--black);
+            font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+            margin-top: 1vh;
+            line-height: 1.4;
+        }
+
+        .highlight-box .goal-icon {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            display: block;
+            margin-bottom: 1vh;
+        }
+
+        .big-stat {
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1vh;
+            display: block;
+            transition: color 0.4s;
+        }
+
+        .step-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4vh;
+            gap: 1vw;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: 2vh 1vw;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .step:hover { background: rgba(255, 255, 255, 0.03); }
+
+        .step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -10px;
+            top: 30%;
+            color: var(--orange);
+            font-size: 2rem;
+        }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--orange);
+        }
+
+        .step h4 {
+            color: var(--gold);
+            margin: 1vh 0;
+            font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+        }
+
+        .step p {
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            border: 2px solid var(--orange);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .nav-btn:hover {
+            background: var(--orange);
+            color: var(--black);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 15px var(--orange);
+        }
+
+        .nav-prev { left: 20px; }
+        .nav-next { right: 20px; }
+
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+
+        .slide-menu {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            transition: background 0.4s, border-color 0.4s;
+        }
+
+        .menu-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .menu-dot:hover {
+            background: var(--white);
+            transform: scale(1.2);
+        }
+
+        .menu-dot.active {
+            background: var(--orange);
+            box-shadow: 0 0 8px var(--orange);
+            transform: scale(1.2);
+        }
+
+        .page-indicator {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            font-size: 1rem;
+            color: #888;
+            z-index: 100;
+            transition: color 0.4s;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 2vw, 2rem);
+            color: var(--gold);
+            margin-bottom: 5vh;
+            letter-spacing: 1px;
+            transition: color 0.4s;
+        }
+
+        .footer-info {
+            margin-top: auto;
+            font-size: 0.9rem;
+            color: #888;
+            transition: color 0.4s;
+        }
+
+        .global-logo {
+            position: fixed;
+            top: 12px;
+            right: 80px;
+            max-height: 55px;
+            z-index: 1001;
+            filter: drop-shadow(0 0 8px rgba(242, 103, 36, 0.3));
+            transition: max-height 0.3s ease, filter 0.3s ease;
+        }
+
+        .global-logo:hover {
+            max-height: 65px;
+            filter: drop-shadow(0 0 12px rgba(242, 103, 36, 0.5));
+        }
+
+        .deadline-tag {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.4);
+            padding: 0.3vh 1vw;
+            border-radius: 4px;
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
+            font-weight: 600;
+            margin-top: 1vh;
+            letter-spacing: 0.5px;
+        }
+
+        body.light-mode .deadline-tag {
+            background: rgba(231, 76, 60, 0.1);
+            color: #c0392b;
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+        .warning-icon {
+            color: #e74c3c;
+            margin-right: 0.5vw;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Global Logo -->
+    <img src="cait-india-white-logo-001.svg" alt="CAIT Logo" class="global-logo">
+
+    <div class="presentation-container">
+
+        <!-- SLIDE 1: Title -->
+        <div class="slide active">
+            <p class="subtitle anim-item">Annual Presentation</p>
+            <h1 class="anim-item">IT Department<br>FY 2026–27</h1>
+            <h2 class="anim-item">Strategic Goals & Action Plan</h2>
+            <p class="anim-item" style="margin-top: 2vh;"><strong>Presented by:</strong> Barun Sharma</p>
+            <p class="anim-item footer-info" style="margin-top:5vh; color:var(--orange);">Press → or click arrows to
+                navigate</p>
+        </div>
+
+        <!-- SLIDE 2: Department Overview -->
+        <div class="slide">
+            <h2 class="anim-item">Department Overview</h2>
+            <div class="grid-2">
+                <div class="anim-item">
+                    <h3>Core Objectives</h3>
+                    <ul>
+                        <li>Ensure smooth & secure IT infrastructure</li>
+                        <li>Minimize downtime & maximize availability</li>
+                        <li>Strengthen cybersecurity & data protection</li>
+                        <li>Automate manual processes (onboarding, backups)</li>
+                        <li>Provide efficient, SLA-driven IT support</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="anim-item">Strategic Importance</h3>
+                    <div class="card anim-item">
+                        <p><strong style="color:var(--white)">Backbone:</strong> Supports all digital platforms & ops
+                        </p>
+                    </div>
+                    <div class="card anim-item" style="margin-top: 2vh;">
+                        <p><strong style="color:var(--white)">Enabler:</strong> Drives productivity via automation</p>
+                    </div>
+                    <div class="card anim-item" style="margin-top: 2vh;">
+                        <p><strong style="color:var(--white)">Guardian:</strong> Ensures security & compliance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Team Structure -->
+        <div class="slide">
+            <h2 class="anim-item">Team Structure</h2>
+            <div class="grid-2">
+                <div class="anim-item">
+                    <h3>Current Structure</h3>
+                    <ul>
+                        <li>IT Head / System Administrator</li>
+                        <ul>
+                            <li>IT Support</li>
+                            <li>Application / LMS Support</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="anim-item">Proposed Scalability</h3>
+                    <div class="card card-gold anim-item">
+                        <p style="color:var(--gold); font-weight:bold;">Automation Specialist</p>
+                        <p>Automates processes to improve efficiency and reduce manual work.</p>
+                    </div>
+                    <div class="card card-gold anim-item" style="margin-top: 2vh;">
+                        <p style="color:var(--gold); font-weight:bold;">Application / Development Team</p>
+                        <p>Maintains internal software and integrations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Previous Year Wins -->
+        <div class="slide">
+            <h2 class="anim-item">Previous Year Wins (2025–26)</h2>
+            <div class="grid-2" style="align-items: center;">
+                <div class="highlight-box anim-item">
+                    <div class="big-stat" style="color: var(--black);"><span class="count-up" data-target="99">0</span>%
+                    </div>
+                    <div class="stat-label" style="color: var(--black);">System Uptime Achieved</div>
+                </div>
+                <div>
+                    <h3 class="anim-item">Major Deployments</h3>
+                    <ul class="anim-item">
+                        <li>Ticketing system (GLPI)</li>
+                        <li>WhatsApp Recruitment Screening Bot (n8n)</li>
+                        <li>Email & Domain Migrations</li>
+                        <li>New Office Setup</li>
+                        <li>VAPT</li>
+                        <li><strong style="color:var(--gold);">Website Migration</strong></li>
+                    </ul>
+                    <h3 class="anim-item" style="margin-top: 2vh;">Security Improvements</h3>
+                    <ul class="anim-item">
+                        <li><strong style="color:var(--gold);">MFA Implementation</strong> — Multi-Factor Authentication deployed across critical systems for enhanced security</li>
+                    </ul>
+                    <h3 class="anim-item" style="margin-top: 2vh;">Operational Wins</h3>
+                    <ul class="anim-item">
+                        <li>Reduced issue resolution time</li>
+                        <li>Enhanced end-user experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Challenges Faced -->
+        <div class="slide">
+            <h2 class="anim-item">Challenges Faced</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="card card-red anim-item" style="margin-bottom: 2vh;">
+                        <h3><span class="warning-icon">⚠</span>Process & Communication</h3>
+                        <ul>
+                            <li><strong style="color:#e74c3c;">~50% of employees</strong> do not raise tickets — rely on verbal communication, causing delays or tasks being skipped entirely</li>
+                            <li>Defined SOPs are not being followed consistently across departments</li>
+                        </ul>
+                    </div>
+                    <div class="card card-red anim-item">
+                        <h3><span class="warning-icon">⚠</span>External Dependencies</h3>
+                        <ul>
+                            <li>Unable to meet TAT due to heavy reliance on external vendors for critical resolutions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="card card-red anim-item" style="margin-bottom: 2vh;">
+                        <h3><span class="warning-icon">⚠</span>Hardware Issues</h3>
+                        <ul>
+                            <li>Outdated hardware models leading to <strong style="color:#e74c3c;">increased maintenance costs</strong> and repeated breakdowns</li>
+                        </ul>
+                    </div>
+                    <div class="card card-red anim-item">
+                        <h3><span class="warning-icon">⚠</span>Out-of-Scope Workload</h3>
+                        <ul>
+                            <li>IT department burdened with non-IT tasks from other departments:</li>
+                            <li style="margin-left:1vw; font-size: clamp(0.85rem,1.2vw,1.15rem); color:#bbb;">→ Payslip generation</li>
+                            <li style="margin-left:1vw; font-size: clamp(0.85rem,1.2vw,1.15rem); color:#bbb;">→ Certificate generation</li>
+                            <li style="margin-left:1vw; font-size: clamp(0.85rem,1.2vw,1.15rem); color:#bbb;">→ Election work</li>
+                            <li style="margin-left:1vw; font-size: clamp(0.85rem,1.2vw,1.15rem); color:#bbb;">→ Excel formula support</li>
+                            <li style="margin-left:1vw; font-size: clamp(0.85rem,1.2vw,1.15rem); color:#bbb;">→ Bulk mail operations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="anim-item footer-info"
+                style="text-align: center; margin-top: 3vh; color: var(--orange); font-style: italic; font-size: 1.1rem;">
+                "These challenges directly impact our ability to scale and deliver on time."
+            </p>
+        </div>
+
+        <!-- SLIDE 6: Learnings & Improvements -->
+        <div class="slide">
+            <h2 class="anim-item">Learnings & Improvements</h2>
+            <div class="grid-2">
+                <div class="anim-item">
+                    <h3>Key Learnings</h3>
+                    <ul>
+                        <li>Automation is critical for scaling</li>
+                        <li>SOPs & documentation save time</li>
+                        <li>User awareness reduces IT workload</li>
+                        <li>Proactive monitoring prevents fires</li>
+                        <li>Verbal communication leads to missed tasks — ticketing discipline is non-negotiable</li>
+                    </ul>
+                </div>
+                <div class="anim-item">
+                    <h3>Actionable Improvements</h3>
+                    <ul>
+                        <li>Implement automated onboarding/offboarding</li>
+                        <li>Integrate monitoring & alerting tools</li>
+                        <li>Improve response time via strict SLAs</li>
+                        <li>Better asset tracking and management</li>
+                        <li>Conduct regular IT training for staff</li>
+                        <li>Enforce mandatory ticket-raising policy</li>
+                        <li>Define and communicate IT scope boundaries</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Annual Goals (Enhancements as Goals) -->
+        <div class="slide">
+            <h2 class="anim-item">Annual Goals 2026–27</h2>
+            <div class="grid-3">
+                <div class="highlight-box anim-item">
+                    <span class="goal-icon">📊</span>
+                    <h2>Goal 1: Dashboards</h2>
+                    <p>Interdepartmental level dashboards for Department Heads & CEO-level executive dashboards</p>
+                </div>
+                <div class="highlight-box anim-item">
+                    <span class="goal-icon">⚙️</span>
+                    <h2>Goal 2: ERP V2</h2>
+                    <p>Deploy ERP Version 2 completely <strong>in-house</strong> — no vendor dependency, full customization</p>
+                </div>
+                <div class="highlight-box anim-item">
+                    <span class="goal-icon">📋</span>
+                    <h2>Goal 3: SOP Streamlining</h2>
+                    <p>Create & enforce SOPs to standardize IT processes and eliminate communication gaps</p>
+                </div>
+            </div>
+            <div class="anim-item" style="margin-top: 4vh; border-top: 1px solid #444; padding-top: 2vh;">
+                <h3 style="color: var(--white);">Alignment with Company Strategy</h3>
+                <p><span style="color: var(--gold); font-weight: bold;">Visibility:</span> Data-driven decisions &nbsp; | &nbsp;
+                    <span style="color: var(--gold); font-weight: bold;">Self-Reliance:</span> In-house capabilities &nbsp; | &nbsp;
+                    <span style="color: var(--gold); font-weight: bold;">Discipline:</span> Process compliance</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Q1 Focus & Critical KPIs -->
+        <div class="slide">
+            <h2 class="anim-item">Q1 Focus & Critical KPIs</h2>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; text-align: center; margin-bottom: 4vh;">
+                <div class="card anim-item">
+                    <div class="big-stat"><span class="count-up" data-target="90">0</span>%</div>
+                    <div class="stat-label">SLA Compliance</div>
+                </div>
+                <div class="card anim-item">
+                    <div class="big-stat"><span class="count-up" data-target="20">0</span>%</div>
+                    <div class="stat-label">Automated Onboarding</div>
+                </div>
+                <div class="card anim-item">
+                    <div class="big-stat" style="font-size: clamp(2rem, 4vw, 4rem);">100%</div>
+                    <div class="stat-label">Core SOPs Drafted</div>
+                </div>
+                <div class="card anim-item">
+                    <div class="big-stat" style="font-size: clamp(2rem, 4vw, 4rem); color: var(--orange);">✓</div>
+                    <div class="stat-label">Dashboard Wireframes</div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="card card-gold anim-item">
+                    <h3>Focus 1: Dashboards & SOPs</h3>
+                    <p>Complete dashboard requirements gathering, wireframes for Dept Head & CEO levels; Draft and finalize core IT SOPs with enforcement plan</p>
+                </div>
+                <div class="card card-gold anim-item">
+                    <h3>Focus 2: ERP V2 Planning</h3>
+                    <p>Define ERP V2 architecture, module roadmap, and begin in-house development setup; Initiate automated onboarding workflows</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Action Plan -->
+        <div class="slide">
+            <h2 class="anim-item">Action Plan (Q1 Execution)</h2>
+            <div class="step-container">
+                <div class="step anim-item">
+                    <div class="step-number">01</div>
+                    <h4>SOPs</h4>
+                    <p>Draft & finalize core IT SOPs; Enforce ticketing policy</p>
+                </div>
+                <div class="step anim-item">
+                    <div class="step-number">02</div>
+                    <h4>Dashboards</h4>
+                    <p>Gather requirements, design wireframes for Dept Head & CEO levels</p>
+                </div>
+                <div class="step anim-item">
+                    <div class="step-number">03</div>
+                    <h4>ERP V2</h4>
+                    <p>Define architecture, module plan & begin in-house dev setup</p>
+                </div>
+                <div class="step anim-item">
+                    <div class="step-number">04</div>
+                    <h4>Automate</h4>
+                    <p>Deploy automation tools (n8n/scripts) for onboarding & daily ops</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Resources Required -->
+        <div class="slide">
+            <h2 class="anim-item">Resources Required</h2>
+            <div class="grid-2">
+                <div class="anim-item">
+                    <div class="card" style="margin-bottom: 2vh;">
+                        <h3>Technology & Tools</h3>
+                        <ul>
+                            <li>Automation platforms & subscription</li>
+                            <li>Dashboard development tools & licenses</li>
+                            <li>ERP V2 development environment & infrastructure</li>
+                        </ul>
+                    </div>
+                    <div class="card card-gold">
+                        <h3>Operations</h3>
+                        <ul>
+                            <li>Vendor Statement of Work (SOW) for external dependencies</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="card card-red anim-item" style="margin-bottom: 2vh;">
+                        <h3>DevOps Course Requirement</h3>
+                        <ul>
+                            <li><strong style="color:var(--gold);">Budget: ₹30,000 – ₹45,000</strong></li>
+                            <li>Reduces external vendor dependency</li>
+                            <li>Minimizes resolution time significantly</li>
+                            <li>Lowers recurring external support costs</li>
+                        </ul>
+                        <span class="deadline-tag" style="background: rgba(242, 103, 36, 0.15); color: var(--orange); border-color: rgba(242, 103, 36, 0.4);">⏰ Within 30 Days</span>
+                    </div>
+                    <div class="card anim-item">
+                        <h3>Good Quality Hardware</h3>
+                        <ul>
+                            <li>Upgrade from outdated models to reduce recurring maintenance costs</li>
+                            <li>Eliminate repeated hardware failures and downtime</li>
+                        </ul>
+                        <span class="deadline-tag">⏰ DEADLINE: Q1 FY 2026–27</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Thank You -->
+        <div class="slide" style="justify-content: center; align-items: center; text-align: center;">
+            <h1 class="anim-item" style="font-size: clamp(4rem, 8vw, 8rem); margin-bottom: 2vh;">Thank You</h1>
+            <h2 class="anim-item" style="border: none; color: var(--gold);">Questions?</h2>
+            <p class="anim-item" style="margin-top: 5vh; font-size: 1.2rem;">
+                Barun Sharma | itsupport@caitindia.com
+            </p>
+        </div>
+
+        <!-- Controls -->
+        <button class="nav-btn nav-prev" onclick="changeSlide(-1)">❮</button>
+        <button class="nav-btn nav-next" onclick="changeSlide(1)">❯</button>
+
+        <div class="slide-menu" id="slide-menu"></div>
+
+        <div class="page-indicator">
+            <span id="current-slide">1</span> / <span id="total-slides">11</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progress-bar');
+        const menuContainer = document.getElementById('slide-menu');
+
+        document.getElementById('total-slides').innerText = totalSlides;
+
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('menu-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(index);
+            menuContainer.appendChild(dot);
+        });
+
+        function updateUI() {
+            document.getElementById('current-slide').innerText = currentSlide + 1;
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            document.querySelectorAll('.menu-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function triggerCounters(slideElement) {
+            const counters = slideElement.querySelectorAll('.count-up');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 1500;
+                let start = 0;
+
+                const updateCounter = (timestamp) => {
+                    if (!start) start = timestamp;
+                    const progress = Math.min((timestamp - start) / duration, 1);
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    counter.innerText = Math.floor(easeOut * target);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                window.requestAnimationFrame(updateCounter);
+            });
+        }
+
+        function goToSlide(index) {
+            if (index === currentSlide) return;
+
+            const prevSlide = slides[currentSlide];
+            const nextSlide = slides[index];
+
+            const nextElements = nextSlide.querySelectorAll('.anim-item');
+            nextElements.forEach(el => {
+                el.style.transition = 'none';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+            });
+
+            prevSlide.classList.remove('active');
+            void nextSlide.offsetWidth;
+
+            currentSlide = index;
+            nextSlide.classList.add('active');
+
+            requestAnimationFrame(() => {
+                nextElements.forEach(el => {
+                    el.style.transition = '';
+                    el.style.opacity = '';
+                    el.style.transform = '';
+                });
+            });
+
+            triggerCounters(nextSlide);
+            updateUI();
+        }
+
+        function changeSlide(direction) {
+            let nextSlide = currentSlide + direction;
+            if (nextSlide > totalSlides - 1) nextSlide = 0;
+            if (nextSlide < 0) nextSlide = totalSlides - 1;
+            goToSlide(nextSlide);
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const firstSlideElements = slides[0].querySelectorAll('.anim-item');
+
+            firstSlideElements.forEach(el => {
+                el.style.transition = 'none';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+            });
+
+            void slides[0].offsetWidth;
+
+            requestAnimationFrame(() => {
+                firstSlideElements.forEach(el => {
+                    el.style.transition = '';
+                    el.style.opacity = '';
+                    el.style.transform = '';
+                });
+            });
+
+            triggerCounters(slides[0]);
+            updateUI();
+        });
+    </script>
+</body>
+
+</html>
